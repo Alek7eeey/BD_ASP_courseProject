@@ -1,0 +1,257 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+
+    body {
+        background-color: #D9D9D9;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="date"] {
+        background-color: #AFAFAF;
+        color: black;
+    }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus {
+            background-color: #AFAFAF;
+            color: black;
+        }
+
+    #btn, #btn2 {
+        border-radius: 4px;
+        background-color: #E1B16A;
+        color: #906716;
+        border: none;
+        box-shadow: 2px 2px 2px #906716;
+    }
+
+        #btn:hover,
+        #btn2:hover {
+            box-shadow: 2px 5px 4px #906812;
+        }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../SuperUser/MainPage">TaskWave</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/MainPage">My projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/TeamProjects">Team projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../SuperUser/CreateProject">Create project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../SuperUser/CreateTeamProject">Create team project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/SendProjects">Send projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/ReadyProjects">Ready projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/ProjectsForReview">Projects for review</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/Stat">Stats</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="settingBtn">Настройки</button>
+            <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="button" id="exitBtn">Exit</button>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container mt-5">
+    <h1>Настройка личного аккаунта</h1>
+
+    <form id="changeUserDescription">
+        <div class="form-group" style="cursor: pointer" id="photo-container">
+            <!-- Здесь будет отображаться фотография -->
+        </div>
+        <div>
+            <p style="color: red" id="error"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="gmail">Электронная почта</label>
+            <input type="text" class="form-control" id="gmail" name="gmail" placeholder="Введите почту">
+        </div>
+        <div class="form-group">
+            <label for="company">Название компании</label>
+            <input type="text" class="form-control" id="company" name="company" placeholder="Введите название компании">
+        </div>
+        <div class="form-group">
+            <label for="telegram">Telegram</label>
+            <input type="text" class="form-control" id="telegram" name="telegram" placeholder="Введите Telegram">
+        </div>
+        <div class="form-group">
+            <label for="city">Город проживания</label>
+            <input type="text" class="form-control" id="city" name="city" placeholder="Введите город проживания">
+        </div>
+        <div class="form-group" style="display: none;" id="photo-input">
+            <label id="lbPhoto" for="photo">Фотография</label>
+            <input type="file" class="form-control-file" style="margin: 5px; cursor: pointer" id="photo" name="photo" accept="image/*">
+        </div>
+        <button type="submit" style="margin: 5px 0px 5px 0px" class="btn btn-primary" id="btn">Сохранить</button>
+    </form>
+
+    <hr>
+
+    <h2>Изменение логина и пароля</h2>
+
+    <form id="changePasswordLoginForm">
+        <div>
+            <p style="color: red" id="error2"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="login">Новый логин</label>
+            <input type="text" class="form-control" id="login" name="Login" placeholder="Введите новый логин">
+        </div>
+        <div class="form-group">
+            <label for="password">Новый пароль</label>
+            <input type="password" class="form-control" id="password" name="Password" placeholder="Введите новый пароль">
+        </div>
+        <button type="button" class="btn btn-primary" style="margin: 5px 0px 5px 0px" id="btn2">Изменить</button>
+    </form>
+
+</div>
+
+
+<script>
+    document.getElementById('exitBtn').addEventListener('click', function () {
+        document.cookie = 'jwtToken=;expires=01-07-1998;path=/;';
+        window.location.href = '../Default/SignIn';
+    });
+
+    document.getElementById('settingBtn').addEventListener('click', function () {
+        window.location.href = '../SuperUser/SettingAccount';
+    });
+
+    document.getElementById('changeUserDescription').addEventListener('submit', function (event) {
+        event.preventDefault(); // Предотвращаем стандартное поведение формы
+
+        // Получаем значения полей формы
+        var gmail = document.getElementById('gmail').value;
+        var company = document.getElementById('company').value;
+        var telegram = document.getElementById('telegram').value;
+        var city = document.getElementById('city').value;
+        var photo = document.getElementById('photo').files[0]; // Получаем выбранный файл
+
+        // Создаем объект FormData и добавляем в него значения из формы
+        var formData = new FormData();
+        formData.append('email', gmail);
+        formData.append('company', company);
+        formData.append('telegram', telegram);
+        formData.append('city', city);
+        formData.append('image', photo);
+
+        // Отправляем данные на сервер с использованием fetch
+        fetch('/SuperUser/ChangeUserDescription', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '../SuperUser/SettingAccount';
+                }
+                else {
+                    throw new Error('Network response was not ok');
+                }
+
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+            });
+    });
+
+    document.getElementById('btn2').addEventListener('click', function () {
+        // Получаем значения логина и пароля
+        var login = document.getElementById('login').value;
+        var password = document.getElementById('password').value;
+
+        // Создаем объект FormData и добавляем в него значения из формы
+        var formData = new FormData();
+        formData.append('Login', login);
+        formData.append('Password', password);
+
+        // Отправляем данные на сервер с использованием fetch
+        fetch('/SuperUser/ChangePasswordLogin', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '../SuperUser/SettingAccount';
+                }
+                else {
+                    throw new Error('Network response was not ok');
+                }
+
+            })
+
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+                // Добавьте обработку ошибок, чтобы увидеть, что произошло
+                document.getElementById('error2').innerText = '...Ошибка при изменении, пользователь с таким login-ом существует!';
+            });
+    });
+
+    fetch('../SuperUser/GetDescriptionAccount')
+        .then(response => response.json())
+        .then(user => {
+            // Заполняем поля формы данными из объекта user
+            document.getElementById('login').value = user.login || '';
+            document.getElementById('gmail').value = user.email || '';
+            document.getElementById('company').value = user.company || '';
+            document.getElementById('telegram').value = user.telegram || '';
+            document.getElementById('city').value = user.city || '';
+            document.getElementById('password').value = user.password || '';
+
+            // Получаем контейнер для фотографии и поле для выбора файла
+            var photoContainer = document.getElementById('photo-container');
+            var photoInput = document.getElementById('photo-input');
+
+            // Очищаем контейнер от предыдущего содержимого
+            photoContainer.innerHTML = '';
+
+            // Проверяем наличие фотографии
+            if (user.image && user.image.length > 0) {
+                var img = document.createElement('img');
+
+                // Используйте URL контроллера для получения изображения
+                img.src = '../SuperUser/GetUserImage/' + user.titlePhoto;
+                img.alt = 'Фотография пользователя';
+                // Добавьте стили для уменьшения размера изображения
+                img.style.maxWidth = '180px';
+                img.style.maxHeight = '180px';
+                img.style.margin = '8px 8px 0px 0px';
+                img.style.borderRadius = '20px'; // Пример радиуса закругления
+
+                photoContainer.appendChild(img);
+
+                document.getElementById('lbPhoto').innerHTML = 'Выбрать другую фотографию';
+                photoInput.style.display = 'block';
+            }
+            else {
+                photoInput.style.display = 'block';
+            }
+        })
+        .catch(error => console.error('Ошибка получения данных с сервера:', error));
+</script>

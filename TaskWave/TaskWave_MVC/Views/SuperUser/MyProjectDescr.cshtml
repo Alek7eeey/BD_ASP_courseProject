@@ -1,0 +1,210 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Project
+
+<style>
+    body {
+        background-color: #D9D9D9;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        background-color: #AFAFAF;
+        color: black;
+    }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            background-color: #AFAFAF;
+            color: black;
+        }
+
+    #btn {
+        border-radius: 4px;
+        background-color: #E1B16A;
+        color: #906716;
+        border: none;
+        box-shadow: 2px 2px 2px #906716;
+    }
+
+        #btn:hover {
+            box-shadow: 2px 5px 4px #906812;
+        }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../SuperUser/MainPage">TaskWave</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/MainPage">My projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/TeamProjects">Team projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../SuperUser/CreateProject">Create project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../SuperUser/CreateTeamProject">Create team project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/SendProjects">Send projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/ReadyProjects">Ready projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/ProjectsForReview">Projects for review</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/Stat">Stats</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="settingBtn">Настройки</button>
+            <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="button" id="exitBtn">Exit</button>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5 mb-2">
+
+    <h2>Детали проекта</h2>
+
+    <dl class="row">
+
+        <dt class="col-sm-3">Название проекта:</dt>
+        <dd class="col-sm-9">@Model.name</dd>
+
+        <dt class="col-sm-3">Дата выполнения:</dt>
+        <dd class="col-sm-9">@Model.toDate</dd>
+
+        <dt class="col-sm-3">Дата постановки:</dt>
+        <dd class="col-sm-9">@Model.fromDate</dd>
+
+        <dt class="col-sm-3">Описание:</dt>
+
+        @if (Model.description != "" && Model.description != null)
+        {
+            <dd class="col-sm-9">@Model.description</dd>
+        }
+        else
+        {
+            <dd class="col-sm-9">Описание отсутствует.</dd>
+        }
+
+        <!-- Добавление поля для фото -->
+        <dt class="col-sm-3">Фото:</dt>
+        <dd class="col-sm-9">
+            @if (Model.photo != null && Model.photo.fileName != null)
+            {
+                <img style="width:180px; height:180px; border-radius: 20px;" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.photo.photo)" class="img-fluid" alt="Project Photo" />
+            }
+            else
+            {
+                <p>Фото отсутствует.</p>
+            }
+        </dd>
+
+        <!-- Добавление поля для файла -->
+        <dt class="col-sm-3">Документ:</dt>
+        <dd class="col-sm-9">
+            @if (Model.document != null && Model.document.data != null)
+            {
+                <a href="data:application/octet-stream;base64,@Convert.ToBase64String(Model.document.data)" download="@Model.document.title">Download Document</a>
+            }
+            else
+            {
+                <p>Документ отсутствует.</p>
+            }
+        </dd>
+
+        <!-- Добавьте остальные поля проекта в соответствии с вашей моделью -->
+
+        <dt class="col-sm-3">Задачи:</dt>
+        <dd class="col-sm-9">
+            @if (Model.tasks != null && Model.tasks.Any())
+            {
+                <ul>
+                    @foreach (var task in Model.tasks)
+                    {
+                        <li>@task.description</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>Нету задач для этого проекта.</p>
+            }
+        </dd>
+    </dl>
+    <button type="submit" class="btn btn-primary" onclick="Complete(@Model.id)" id="btn" style="margin: 5px 0px 5px 0px">Выполнить проект</button>
+    <button type="submit" class="btn btn-primary" onclick="Update(@Model.id)" style="margin: 5px 0px 5px 0px" id="btn">Изменить проект</button> <br />
+    <button type="submit" class="btn btn-secondary" onclick="Delete(@Model.id)" style="margin: 5px 0px 5px 0px">Удалить проект</button>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+
+    document.getElementById('exitBtn').addEventListener('click', function () {
+        document.cookie = 'jwtToken=;expires=01-07-1998;path=/;';
+        window.location.href = '../Default/SignIn';
+    });
+
+    document.getElementById('settingBtn').addEventListener('click', function () {
+        window.location.href = '../SuperUser/SettingAccount';
+    });
+
+    const Complete = (id) => {
+
+        // Отправляем данные на сервер с использованием fetch
+        fetch('/SuperUser/CompleteProject?idPr=' + id, {
+            method: 'GET'
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '../SuperUser/ReadyProjects';
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+            });
+    };
+
+    const Delete = (id) => {
+
+        // Отправляем данные на сервер с использованием fetch
+        fetch('/SuperUser/DeleteProject?idPr=' + id, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '../SuperUser/MainPage';
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+            });
+    };
+
+    const Update = (id) => {
+        window.location.href = '../SuperUser/UpdateOwnProject?idPr=' + id;
+    };
+
+</script>

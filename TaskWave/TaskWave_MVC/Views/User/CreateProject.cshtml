@@ -1,0 +1,175 @@
+﻿@*
+   For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+}
+
+<style>
+    body {
+        background-color: #D9D9D9;
+    }
+
+    input[type="text"],
+    input[type="date"] 
+    {
+        background-color: #AFAFAF;
+        color: black;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus 
+    {
+        background-color: #AFAFAF;
+        color: black;
+    }
+
+    #btn {
+        border-radius: 4px;
+        background-color: #E1B16A;
+        color: #906716;
+        border: none;
+        box-shadow: 2px 2px 2px #906716;
+    }
+
+        #btn:hover {
+            box-shadow: 2px 5px 4px #906812;
+        }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../User/MainPage">TaskWave</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../User/MainPage">My projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../User/TeamProjects">Team projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="createPr" href="../User/CreateProject">Create project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../User/SendProjects">Send projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../User/ReadyProjects">Ready projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../User/Stat">Stats</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="settingBtn">Настройки</button>
+            <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="button" id="exitBtn">Exit</button>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Добавление нового проекта</h1>
+    <form method="post" asp-controller="User" asp-action="CreateProject" enctype="multipart/form-data">
+        <div>
+            <p style="color: red" id="error"></p>
+        </div>
+        <div class="form-group">
+            <label for="projectName">Название проекта</label>
+            <input type="text" class="form-control" id="projectName" name="name" required placeholder="Название">
+        </div>
+        <div class="form-group">
+            <label for="dueDate">Дата выполнения</label>
+            <input type="date" class="form-control" id="dueDate" name="toDate" min="" required>
+        </div>
+        <div class="form-group">
+            <label for="projectDescription">Описание проекта</label>
+            <textarea class="form-control" style="background-color: #AFAFAF" placeholder="Описание" id="projectDescription" name="description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="projectPhoto">Фото проекта</label>
+            <input type="file" class="custom-file-input styled-input" style="margin: 5px; cursor: pointer" id="projectPhoto" name="photo" accept="image/*">
+        </div>
+        <div class="form-group">
+            <label for="projectDocument">Документ проекта</label>
+            <input type="file" class="form-control-file" id="projectDocument" name="document" style="cursor: pointer" accept=".pdf, .doc, .docx, .html, .json, .xml, .txt, .xlsx">
+        </div>
+
+        <!-- Секция для добавления задач -->
+        <div class="form-group">
+            <h5 class="font-weight-bold mt-3">Задачи проекта</h5>
+            <div id="taskList">
+                <!-- Здесь будут появляться дополнительные поля для задач -->
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addTask()" style="margin: 5px 0px 5px 0px">Добавить задачу</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin: 5px 0px 5px 0px" id="btn">Создать проект</button>
+    </form>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+
+    document.getElementById('exitBtn').addEventListener('click', function () {
+        document.cookie = 'jwtToken=;expires=01-07-1998;path=/;';
+        window.location.href = '../Default/SignIn';
+    });
+
+    document.getElementById('settingBtn').addEventListener('click', function () {
+        window.location.href = '../User/SettingAccount';
+    });
+
+    document.getElementById('taskList').addEventListener('click', function (event) {
+        if (event.target.classList.contains('remove-task-btn')) {
+            removeTask(event.target.closest('.task-container'));
+        }
+    });
+
+    let id = 0;
+
+    const addTask = () => {
+        var taskList = document.getElementById("taskList");
+        var newTaskContainer = document.createElement("div");
+        newTaskContainer.className = "task-container";
+
+        var newTaskInput = document.createElement("input");
+        newTaskInput.type = "text";
+        newTaskInput.className = "form-control mt-2";
+        newTaskInput.name = "tasks";
+        newTaskInput.placeholder = "Новая задача";
+
+        var removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "btn btn-danger btn-sm ml-2 remove-task-btn";
+        removeButton.textContent = "Удалить";
+
+        newTaskContainer.appendChild(newTaskInput);
+        newTaskContainer.appendChild(removeButton);
+        taskList.appendChild(newTaskContainer);
+    };
+
+    const removeTask = (taskContainer) => {
+        taskContainer.remove();
+    };
+
+    document.getElementById('exitBtn').addEventListener('click', function () {
+        document.cookie = 'jwtToken=;expires=01-07-1998;path=/;';
+        window.location.href = '../Default/SignIn';
+    });
+
+    //-----------Validate birth date ----------------
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("dueDate").setAttribute("min", today);
+
+</script>

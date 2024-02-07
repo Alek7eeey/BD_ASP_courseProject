@@ -1,0 +1,141 @@
+﻿<style>
+    body {
+        background-color: #D9D9D9
+    }
+
+    /* Добавим немного стилей для красивого отображения */
+    .project-block {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #111;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .project-block:hover {
+            background-color: #f8f9fa;
+        }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../SuperUser/MainPage">TaskWave</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link active" href="../SuperUser/MainPage">My projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/TeamProjects">Team projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../SuperUser/CreateProject">Create project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../SuperUser/CreateTeamProject">Create team project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/SendProjects">Send projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/ReadyProjects">Ready projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/ProjectsForReview">Projects for review</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../SuperUser/Stat">Stats</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="settingBtn">Настройки</button>
+            <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="button" id="exitBtn">Exit</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Список задач -->
+<div class="container mt-5">
+    <h1>Список личных проектов</h1>
+    <div class="container mt-5" id="projectContainer">
+        <h4 class="text-muted">Проекты отсутствуют!</h4>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+
+    let id = 0;
+
+    document.getElementById('settingBtn').addEventListener('click', function () {
+        window.location.href = '../SuperUser/SettingAccount';
+    });
+
+    document.getElementById('exitBtn').addEventListener('click', function () {
+        document.cookie = 'jwtToken=;expires=01-07-1998;path=/;';
+        window.location.href = '../Default/SignIn';
+    });
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        addProjects();
+    });
+    const addProjects = async () => {
+        const response = await fetch('/SuperUser/GetMyProjects', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            renderProjects(data);
+        }
+
+        else {
+            const error = await response.text();
+            console.log('Ошибка при загрузке проектов:', error);
+        }
+    };
+
+
+
+    // Функция для отрисовки блоков проектов
+    function renderProjects(projects) {
+
+        var projectContainer = document.getElementById('projectContainer');
+
+        // Очищаем контейнер от предыдущих данных
+        projectContainer.innerHTML = '';
+
+        // Добавляем блоки для каждого проекта
+        projects.forEach(function (project) {
+            var projectBlock = document.createElement('div');
+            projectBlock.className = 'project-block';
+            projectBlock.id = 'project' + id++;
+            projectBlock.onclick = function () {
+                handleProjectClick(project.id);
+            };
+
+            projectBlock.innerHTML = `
+                <h3>${project.name}</h3>
+                <p><strong>Дедлайн:</strong> ${project.toDate}</p>
+                <p><strong>Дата постановки:</strong> ${project.fromDate}</p>
+              `;
+            // Добавляем блок проекта в контейнер
+            projectContainer.appendChild(projectBlock);
+        });
+    }
+
+    // JavaScript-функция для обработки нажатий на блок проекта
+    const handleProjectClick = async (projectID) => {
+        window.location.href = '/SuperUser/GetMyProjectDescription?idPr=' + projectID;
+    }
+</script>
+

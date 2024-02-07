@@ -1,0 +1,189 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = TaskWave_MVC
+build_property.RootNamespace = TaskWave_MVC
+build_property.ProjectDir = D:\studing\5_semestr\Course_project\TaskWave\TaskWave_MVC\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\studing\5_semestr\Course_project\TaskWave\TaskWave_MVC
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/aleks/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.8.14/build/AdditionalFiles/vs-threading.LegacyThreadSwitchingMembers.txt]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aleks/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.8.14/build/AdditionalFiles/vs-threading.MainThreadAssertingMethods.txt]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aleks/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.8.14/build/AdditionalFiles/vs-threading.MainThreadSwitchingMethods.txt]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aleks/.nuget/packages/microsoft.visualstudio.threading.analyzers/17.8.14/build/AdditionalFiles/vs-threading.MembersRequiringMainThread.txt]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Admin/AllProjects.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWxsUHJvamVjdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Admin/ConfirmUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29uZmlybVVzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Admin/MainPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFpblBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Default/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVmYXVsdFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Default/SignIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVmYXVsdFxTaWduSW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/CreateProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXENyZWF0ZVByb2plY3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/CreateTeamProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXENyZWF0ZVRlYW1Qcm9qZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/MainPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXE1haW5QYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/MyProjectDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXE15UHJvamVjdERlc2NyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/ProjectsForReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFByb2plY3RzRm9yUmV2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/ProjectsForReviewDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFByb2plY3RzRm9yUmV2aWV3RGVzY3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/ReadyProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFJlYWR5UHJvamVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/ReadyProjectDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFJlYWR5UHJvamVjdERlc2NyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/SendProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFNlbmRQcm9qZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/SendProjectDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFNlbmRQcm9qZWN0RGVzY3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/SettingAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFNldHRpbmdBY2NvdW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/Stat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFN0YXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/TeamProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFRlYW1Qcm9qZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/TeamProjectDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFRlYW1Qcm9qZWN0RGVzY3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/SuperUser/UpdateOwnProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJVc2VyXFVwZGF0ZU93blByb2plY3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/CreateProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDcmVhdGVQcm9qZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/MainPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxNYWluUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/MyProjectDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxNeVByb2plY3REZXNjci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/ReadyProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWFkeVByb2plY3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/ReadyProjectDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWFkeVByb2plY3REZXNjci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/SendProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZW5kUHJvamVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/SendProjectDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZW5kUHJvamVjdERlc2NyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/SettingAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZXR0aW5nQWNjb3VudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/Stat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTdGF0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/TeamProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxUZWFtUHJvamVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/TeamProjectDescr.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxUZWFtUHJvamVjdERlc2NyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/User/UpdateOwnProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxVcGRhdGVPd25Qcm9qZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/studing/5_semestr/Course_project/TaskWave/TaskWave_MVC/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-voddz8a349

@@ -1,0 +1,93 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+<link rel="stylesheet" href="~/css/Default/Register_Auth.css" />
+
+<div class="mainContainer">
+    <div id="WelcomePhrase" class="container text-dark m-2">
+        <h1 class="display-7">Sign in</h1>
+    </div>
+
+        <div class="container m-2">
+            <p style="color:red" class="error"></p>
+        </div>
+
+    <form asp-controller="Default" asp-action="SignIn" method="post">
+        <div class="form-group row m-2">
+            <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputLogin" name="Login">
+            </div>
+        </div>
+
+        <div class="form-group row m-2">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword3" name="Password">
+            </div>
+        </div>
+
+        <div class="form-group row m-2">
+            <div class="col-sm-10">
+                <button type="submit" id="btn" class="btn btn-primary">Sign In</button>
+            </div>
+        </div>
+    </form>
+
+    <div style="margin-left: 1%" id="sign">
+        <a style="cursor: pointer" href="../Default/Register" id="getRegister" class="container">Registration</a>
+    </div>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        const response = await fetch('/Default/SignIn', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Login: formData.get('Login'),
+                Password: formData.get('Password')
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const token = data.token;
+
+            var expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 30);
+
+            document.cookie = 'jwtToken=' + token + ';expires=' + expirationDate.toUTCString()+';path=/;';
+
+            // Извлекаем роль из токена
+            const jwtPayload = JSON.parse(atob(token.split('.')[1]));
+            const userRole = jwtPayload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+
+
+            if (userRole === 'USER') {
+                window.location.href = '../User/MainPage';
+            } 
+
+            else if (userRole === 'SUPERUSER') {
+                window.location.href = '../SuperUser/MainPage';
+            }
+
+            else if (userRole === 'ADMIN') {
+                window.location.href = '../Admin/MainPage';
+            }
+        } 
+        else {
+            const error = await response.text();
+            document.getElementsByClassName('error')[0].innerHTML = error;
+        }
+    });
+</script>

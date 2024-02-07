@@ -1,0 +1,197 @@
+﻿
+@model Project
+
+<style>
+    body {
+        background-color: #D9D9D9;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        background-color: #AFAFAF;
+        color: black;
+    }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            background-color: #AFAFAF;
+            color: black;
+        }
+
+    #btn {
+        border-radius: 4px;
+        background-color: #E1B16A;
+        color: #906716;
+        border: none;
+        box-shadow: 2px 2px 2px #906716;
+    }
+
+        #btn:hover {
+            box-shadow: 2px 5px 4px #906812;
+        }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../User/MainPage">TaskWave</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../User/MainPage">My projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../User/TeamProjects">Team projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../User/CreateProject">Create project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../User/SendProjects">Send projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../User/ReadyProjects">Ready projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../User/Stat">Stats</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="settingBtn">Настройки</button>
+            <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="button" id="exitBtn">Exit</button>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Изменение проекта</h1>
+    <form method="post" asp-controller="User" asp-action="UpdateMyProject" enctype="multipart/form-data" id="myForm">
+        <div>
+            <p style="color: red" id="error"></p>
+        </div>
+        <input type="hidden" name="id" value="@Model.id">
+        <div class="form-group">
+            <label for="projectName">Название проекта</label>
+            <input type="text" class="form-control" id="projectName" name="name" required value="@Model.name">
+        </div>
+        <div class="form-group">
+            <label for="dueDate">Дата выполнения</label>
+            <input type="date" class="form-control" id="dueDate" name="toDate" min="" required value="@Model.toDate.ToString("yyyy-MM-dd")">
+        </div>
+        <div class="form-group">
+            <label for="projectDescription">Описание проекта</label>
+            <textarea class="form-control" style="background-color: #AFAFAF" id="projectDescription" name="description" rows="3" required>@Model.description</textarea>
+        </div>
+
+
+        <div class="form-group">
+
+            @if (Model.photo != null && Model.photo.fileName != null)
+            {
+                <img style="width:180px; height:180px; border-radius: 20px; margin-top:8px;" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.photo.photo)" class="img-fluid" alt="Project Photo" />
+                <div>
+                    <label for="projectPhoto">Изменить фото </label>
+                    <input type="file" class="custom-file-input styled-input" style="margin: 5px; cursor: pointer" id="projectPhoto" name="photo" accept="image/*">
+                </div>
+            }
+            else
+            {
+                <label for="projectPhoto">Добавить фото</label>
+                <input type="file" class="custom-file-input styled-input" style="margin: 5px; cursor: pointer" id="projectPhoto" name="photo" accept="image/*">
+            }
+
+        </div>
+        <div class="form-group">
+
+            @if (Model.document != null && Model.document.data != null)
+            {
+                <div class="mt-4">
+                    <a href="data:application/octet-stream;base64,@Convert.ToBase64String(Model.document.data)" download="@Model.document.title">Document</a>
+                    <label for="projectDocument">Изменить документ </label>
+                    <input type="file" class="form-control-file" id="projectDocument" name="document" style="cursor: pointer" accept=".pdf, .doc, .docx, .html, .json, .xml, .txt, .xlsx">
+                </div>
+            }
+            else
+            {
+                <label for="projectDocument">Добавить документ</label>
+                <input type="file" class="form-control-file" id="projectDocument" name="document" style="cursor: pointer" accept=".pdf, .doc, .docx, .html, .json, .xml, .txt, .xlsx">
+            }
+        </div>
+
+
+        <div class="form-group">
+            <h5 class="font-weight-bold mt-3">Задачи проекта</h5>
+            <div id="taskList">
+
+            @if (Model.tasks != null && Model.tasks.Any())
+            {
+                for (int i = 0; i < Model.tasks.Count; i++)
+                {
+                    <div class="task-container">
+                        <input type="hidden" name="tasks[@i].Id" value="@Model.tasks[i].id" />
+                        <input type="text" class="form-control mt-2" name="tasks[@i].Description" placeholder="Новая задача" value="@Model.tasks[i].description">
+                    </div>
+                }
+            }
+
+            </div>
+
+            <button type="button" class="btn btn-secondary" onclick="addTask()" style="margin: 5px 0px 5px 0px">Добавить задачу</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin: 5px 0px 5px 0px" id="btn">Сохранить проект</button>
+    </form>
+
+</div>
+
+<script>
+    document.getElementById('exitBtn').addEventListener('click', function () {
+        document.cookie = 'jwtToken=;expires=01-07-1998;path=/;';
+        window.location.href = '../Default/SignIn';
+    });
+    
+    document.getElementById('settingBtn').addEventListener('click', function () {
+        window.location.href = '../User/SettingAccount';
+    });
+
+    let id = 10000;
+
+
+
+    const addTask = () => {
+        var taskList = document.getElementById("taskList");
+        var newIndex = taskList.children.length; // Получаем индекс для новой задачи
+
+        var newTaskContainer = document.createElement("div");
+        newTaskContainer.className = "task-container";
+
+        var newHiddenInput = document.createElement("input");
+        newHiddenInput.type = "hidden";
+        newHiddenInput.name = `tasks[${newIndex}].Id`;
+        // Здесь вместо "value" используем "defaultValue" для установки начального значения
+        newHiddenInput.defaultValue = "0"; // Замените на значение по умолчанию, если необходимо
+        newTaskContainer.appendChild(newHiddenInput);
+
+        var newTaskInput = document.createElement("input");
+        newTaskInput.type = "text";
+        newTaskInput.className = "form-control mt-2";
+        newTaskInput.name = `tasks[${newIndex}].Description`;
+        newTaskInput.placeholder = "Новая задача";
+        newTaskContainer.appendChild(newTaskInput);
+
+        taskList.appendChild(newTaskContainer);
+    };
+
+
+
+    //-----------Validate birth date ----------------
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("dueDate").setAttribute("min", today);
+
+    
+</script>

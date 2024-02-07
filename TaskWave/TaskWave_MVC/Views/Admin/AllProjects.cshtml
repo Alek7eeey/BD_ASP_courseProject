@@ -1,0 +1,160 @@
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+@{
+}
+@model IPagedList<Project>
+
+<style>
+    body {
+        background-color: #D9D9D9;
+    }
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../Admin/MainPage">TaskWave ADMIN</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../Admin/MainPage">Users list</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="../Admin/AllProjects">Projects list</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../Admin/ConfirmUser">Confirm user</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="button" id="exitBtn">Exit</button>
+        </div>
+    </div>
+</nav>
+
+@if(Model != null)
+{
+    <div class="container mt-5">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Creator ID</th>
+                    <th>Name</th>
+                    <th>To Date</th>
+                    <th>From Date</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Photo</th>
+                    <th>Document</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model)
+                {
+                    <tr>
+                        <td>@project.id</td>
+                        <td>@project.creatorId</td>
+                        <td>@project.name</td>
+                        <td>@project.toDate.ToString("yyyy-MM-dd")</td>
+                        <td>@project.fromDate.ToString("yyyy-MM-dd")</td>
+                        <td>@project.description</td>
+                        <td>@project.type</td>
+                        <td>
+                            @if (project.photo != null)
+                            {
+                                @if (project.photo.photo != null && project.photo.photo.Length > 0)
+                                {
+                                    <img src="data:image/png;base64,@Convert.ToBase64String(project.photo.photo)" alt="Photo" width="100" />
+                                }
+                                else
+                                {
+                                    <span>No photo</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @if (project.document != null)
+                            {
+                                @if (project.document.data != null && project.document.data.Length > 0)
+                                {
+                                    <a href="data:application/pdf;base64,@Convert.ToBase64String(project.document.data)" target="_blank">Open Document</a>
+                                }
+                                else
+                                {
+                                    <span>No document</span>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-center">
+            <ul class="pagination">
+
+                @if (Model.HasPreviousPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("AllProjects", new { page = Model.PageNumber - 1 })">&laquo; Назад</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo; Назад</span>
+                    </li>
+                }
+
+                @for (var i = 1; i <= Model.PageCount; i++)
+                {
+                    // Ограничим количество отображаемых номеров страниц (например, 5)
+                    @if (Math.Abs(Model.PageNumber - i) <= 2 || i == 1 || i == Model.PageCount)
+                    {
+                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("AllProjects", new { page = i })">@i</a>
+                        </li>
+                    }
+                    else if (Math.Abs(Model.PageNumber - i) == 3)
+                    {
+                        <!-- Добавим многоточие для обозначения пропущенных страниц -->
+                        <li class="page-item disabled">
+                            <span class="page-link">...</span>
+                        </li>
+                    }
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("AllProjects", new { page = Model.PageNumber + 1 })">Вперед &raquo;</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">Вперед &raquo;</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container mt-5">
+        <div class="container mt-5" id="projectContainer">
+            <h4 class="text-muted">Проекты отсутствуют!</h4>
+        </div>
+    </div>
+}
+
+<script>
+    document.getElementById('exitBtn').addEventListener('click', function () {
+        document.cookie = 'jwtToken=;expires=01-07-1998;path=/;';
+        window.location.href = '../Default/SignIn';
+    });
+</script>

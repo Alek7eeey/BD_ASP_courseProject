@@ -1,0 +1,144 @@
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@*
+   For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+}
+@model IPagedList<User>
+<style>
+    body {
+        background-color: #D9D9D9;
+    }
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../Admin/MainPage">TaskWave ADMIN</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="../Admin/MainPage">Users list</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Admin/AllProjects">Projects list</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="createPr" href="../Admin/ConfirmUser">Confirm user</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="button" id="exitBtn">Exit</button>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Login</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>Description</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.id</td>
+                    <td>@user.Login</td>
+                    <td>@user.Password</td>
+                    <td>@user.Email</td>
+                    <td>@user.Description</td>
+                    <td>@user.Role</td>
+                    <td>
+                        <button type="submit" onclick="deleteUser(@user.id)" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Пагинация -->
+    <div class="text-center">
+        <ul class="pagination">
+
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("MainPage", new { page = Model.PageNumber - 1 })">&laquo; Назад</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo; Назад</span>
+                </li>
+            }
+
+            @for (var i = 1; i <= Model.PageCount; i++)
+            {
+                // Ограничим количество отображаемых номеров страниц (например, 5)
+                @if (Math.Abs(Model.PageNumber - i) <= 2 || i == 1 || i == Model.PageCount)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("MainPage", new { page = i })">@i</a>
+                    </li>
+                }
+                else if (Math.Abs(Model.PageNumber - i) == 3)
+                {
+                    <!-- Добавим многоточие для обозначения пропущенных страниц -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+            }
+
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("MainPage", new { page = Model.PageNumber + 1 })">Вперед &raquo;</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">Вперед &raquo;</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    const deleteUser = async (id) => {
+        const response = await fetch('/Admin/DeleteUser?id=' + id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            window.location.href = '../Admin/MainPage';
+        } else {
+            const error = await response.text();
+            console.log('Ошибка при удалении пользователя:', error);
+        }
+    }
+
+    document.getElementById('exitBtn').addEventListener('click', function () {
+        document.cookie = 'jwtToken=;expires=01-07-1998;path=/;';
+        window.location.href = '../Default/SignIn';
+    });
+</script>

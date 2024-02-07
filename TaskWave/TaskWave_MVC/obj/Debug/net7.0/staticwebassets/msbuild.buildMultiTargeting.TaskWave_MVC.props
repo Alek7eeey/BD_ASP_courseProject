@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\TaskWave_MVC.props" />
+</Project>
